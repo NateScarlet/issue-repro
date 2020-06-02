@@ -1,0 +1,21 @@
+directive @goModel(
+  model: String
+  models: [String!]
+) on OBJECT | INPUT_OBJECT | SCALAR | ENUM | INTERFACE | UNION
+directive @goField(
+  forceResolver: Boolean
+  name: String
+) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+interface Node @goModel(model: "./model.Node") {
+  id: ID!
+}
+
+type Todo implements Node @goModel(model: "./model.Todo") {
+  id: ID!
+  text: String!
+}
+
+type Query {
+  todos: [Todo!]!
+}
